@@ -10,9 +10,8 @@ import pytesseract
 app = Flask(__name__)
 
 dataset=[]
-def add_value():
-    value = request.form['value']
-    dataset.append(value)
+def add_value(msg):
+    dataset.append(msg)
     
 
 tfvect = TfidfVectorizer(stop_words='english', max_df=0.7)
@@ -33,18 +32,21 @@ def fake_news_det(news):
 @app.route('/')
 def home():
     pytesseract.pytesseract.tesseract_cmd = r'C://Program Files//Tesseract-OCR//tesseract.exe'
-    a = pytesseract.image_to_string(Image.open('test3.png'))
+    a = pytesseract.image_to_string(Image.open('test2.png')).strip()
+    print(a)
     return render_template('index.html', a=a, values=dataset)
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    add_value()
     if request.method == 'POST':
-        message = request.form['message']
-        pred = fake_news_det(message)
+        message = request.form['message'].strip()
+        add_value(message)
+        print(dataset)
+        pred_npy = fake_news_det(message) # Returns numpy array
+        pred = str(pred_npy[0]) # Explicitly cast to str to pass to jinja
         return render_template('index.html', prediction=pred, values=dataset)
     else:
-        return render_template('index.html', prediction="Something went wrong", values=dataset)
+        return render_template('index.html', prediction="Something went wrong :(", values=dataset)
 
 if __name__ == '__main__':
     app.run(debug=True)
