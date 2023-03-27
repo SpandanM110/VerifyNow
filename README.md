@@ -50,7 +50,8 @@ Proof:
 # Scan Verify
 
 Now if the user want to check by uploading image to check the news from an image
-![image](https://user-images.githubusercontent.com/95229740/227867064-d0f12a70-410e-4ea2-9a6d-44b410767746.png)
+![test2](https://user-images.githubusercontent.com/95229740/227870637-31f9325a-861c-4359-a3a9-52503ffc5671.png)
+
 The image will read it and convey it to the checker with the help of pytesseract to read image from it.
 ![image](https://user-images.githubusercontent.com/95229740/227867767-5f12e5da-3ee7-4fad-9802-b6656983c845.png)
 Now on clicking on button will predict the output
